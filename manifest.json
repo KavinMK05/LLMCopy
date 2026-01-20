@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "LLMCopy",
+  "version": "1.0",
+  "description": "Export AI conversation history to JSON from ChatGPT, Gemini, and Grok.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": [
+        "src/utils/observer.js",
+        "src/utils/exporter.js",
+        "src/content/chatgpt.js"
+      ],
+      "css": ["src/styles/main.css"]
+    },
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": [
+        "src/utils/observer.js",
+        "src/utils/exporter.js",
+        "src/content/gemini.js"
+      ],
+      "css": ["src/styles/main.css"]
+    },
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": [
+        "src/utils/observer.js",
+        "src/utils/exporter.js",
+        "src/content/grok.js"
+      ],
+      "css": ["src/styles/main.css"]
+    }
+  ],
+  "action": {
+    "default_title": "LLMCopy Settings",
+    "default_popup": "src/popup/popup.html"
+  }
+}

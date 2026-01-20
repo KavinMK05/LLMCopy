@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LLMCopy Settings</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="popup-container">
+      <header class="popup-header">
+        <div class="logo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+        </div>
+        <h1>LLMCopy</h1>
+      </header>
+
+      <section class="settings-section">
+        <h2>Export Options</h2>
+        <p class="section-desc">Select metadata to include in JSON export</p>
+
+        <div class="option-list">
+          <label class="option-item">
+            <input type="checkbox" id="opt-timestamp" checked />
+            <span class="checkmark"></span>
+            <span class="option-text">Timestamp per message</span>
+          </label>
+
+          <label class="option-item">
+            <input type="checkbox" id="opt-scraped-at" checked />
+            <span class="checkmark"></span>
+            <span class="option-text">Export date/time</span>
+          </label>
+
+          <label class="option-item">
+            <input type="checkbox" id="opt-url" checked />
+            <span class="checkmark"></span>
+            <span class="option-text">Page URL</span>
+          </label>
+
+          <label class="option-item">
+            <input type="checkbox" id="opt-source" checked />
+            <span class="checkmark"></span>
+            <span class="option-text">Source platform</span>
+          </label>
+
+          <label class="option-item">
+            <input type="checkbox" id="opt-title" checked />
+            <span class="checkmark"></span>
+            <span class="option-text">Conversation title</span>
+          </label>
+
+          <label class="option-item">
+            <input type="checkbox" id="opt-role" checked />
+            <span class="checkmark"></span>
+            <span class="option-text">Message role (user/assistant)</span>
+          </label>
+        </div>
+      </section>
+
+      <footer class="popup-footer">
+        <span class="version">v1.0</span>
+        <span class="status" id="save-status"></span>
+      </footer>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

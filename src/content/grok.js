@@ -1,0 +1,85 @@
+(function () {
+  console.log("LLMCopy: Grok adapter loaded");
+
+  const SELECTORS = {
+    MESSAGE: 'article[data-testid="tweet"]',
+    HEADER: '[data-testid="primaryColumn"] h2[role="heading"]',
+    TEXT_CONTENT: '[data-testid="tweetText"]',
+  };
+
+  function scrapeConversation() {
+    const messages = [];
+    const articles = document.querySelectorAll(SELECTORS.MESSAGE);
+
+    articles.forEach((article) => {
+      const userText = article.innerText;
+      let role = "user";
+      if (userText.includes("@grok") || userText.includes("Grok")) {
+        role = "assistant";
+      }
+
+      const textDiv = article.querySelector(SELECTORS.TEXT_CONTENT);
+      const content = textDiv ? textDiv.innerText : "";
+
+      if (content) {
+        messages.push({
+          role: role,
+          content: content,
+          timestamp: new Date().toISOString(),
+        });
+      }
+    });
+
+    return {
+      title: "Grok Conversation",
+      source: "Grok (X.com)",
+      url: window.location.href,
+      scrapedAt: new Date().toISOString(),
+      messages: messages,
+    };
+  }
+
+  function injectButtons(targetEl) {
+    const container =
+      targetEl.closest('div[style*="flex"]') || targetEl.parentElement;
+
+    if (container.querySelector(".llmcopy-btn")) return;
+
+    const btnOptions = {
+      iconColor: "#E7E9EA",
+      hoverBg: "rgba(255,255,255,0.1)",
+    };
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "llmcopy-container";
+    wrapper.style.display = "flex";
+    wrapper.style.alignItems = "center";
+
+    const copyBtn = window.LLMCopy.createCopyButton(async () => {
+      const data = scrapeConversation();
+      if (data && data.messages.length > 0) {
+        return await window.LLMCopy.copyJSON(data);
+      }
+      alert("LLMCopy: No Grok messages found.");
+      return false;
+    }, btnOptions);
+
+    const downloadBtn = window.LLMCopy.createDownloadButton(() => {
+      const data = scrapeConversation();
+      if (data && data.messages.length > 0) {
+        window.LLMCopy.downloadJSON(data, "grok_export");
+      } else {
+        alert("LLMCopy: No Grok messages found.");
+      }
+    }, btnOptions);
+
+    wrapper.appendChild(copyBtn);
+    wrapper.appendChild(downloadBtn);
+    container.appendChild(wrapper);
+    console.log("LLMCopy: Buttons injected in Grok");
+  }
+
+  window.LLMCopy.observeAndInject(SELECTORS.HEADER, (header) => {
+    injectButtons(header);
+  });
+})();
