@@ -73,17 +73,41 @@ window.LLMCopy.downloadJSON = async function (data, filename = "conversation") {
 
 /**
  * Copy JSON to clipboard
+ * Supports two modes based on user settings:
+ * - "text": Copy as plain text (default)
+ * - "file": Copy as a JSON file blob
  */
 window.LLMCopy.copyJSON = async function (data) {
   const output = await applySettings(data);
   const jsonStr = JSON.stringify(output, null, 2);
+  const settings = await window.LLMCopy.getSettings();
+  const copyMode = settings.copyMode || "text";
 
   try {
-    await navigator.clipboard.writeText(jsonStr);
+    if (copyMode === "file") {
+      // Copy as JSON file - creates a blob that can be pasted as a file
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const clipboardItem = new ClipboardItem({
+        "application/json": blob,
+        // Also include text/plain as fallback for apps that don't support JSON
+        "text/plain": new Blob([jsonStr], { type: "text/plain" }),
+      });
+      await navigator.clipboard.write([clipboardItem]);
+    } else {
+      // Copy as plain text (default)
+      await navigator.clipboard.writeText(jsonStr);
+    }
     return true;
   } catch (e) {
     console.error("LLMCopy: Failed to copy to clipboard", e);
-    return false;
+    // Fallback to plain text if file copy fails
+    try {
+      await navigator.clipboard.writeText(jsonStr);
+      return true;
+    } catch (fallbackError) {
+      console.error("LLMCopy: Fallback copy also failed", fallbackError);
+      return false;
+    }
   }
 };
 

@@ -1,3 +1,14 @@
+:root {
+  --bg: #e8e8e8;
+  --surface: #f4f4f4;
+  --tile: #e6e6e6;
+  --tile-hover: #dddddd;
+  --border: #d0d0d0;
+  --text: #1f1f1f;
+  --muted: #6b6b6b;
+  --focus: #7e7e7e;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,140 +16,120 @@
 }
 
 body {
-  font-family:
-    "Segoe UI",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-  background: #1a1a2e;
-  color: #eaeaea;
-  min-width: 280px;
-  max-width: 320px;
+  min-width: 300px;
+  max-width: 340px;
+  padding: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "SF Pro Text", "Avenir Next", "Helvetica Neue", sans-serif;
 }
 
 .popup-container {
-  padding: 16px;
-  border-radius: 12px;
+  padding: 2px;
 }
 
 .popup-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px;
-  color: white;
+  padding: 2px 4px 10px 4px;
+  border-bottom: 1px solid var(--border);
 }
 
 .popup-header h1 {
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 1.2;
   font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  letter-spacing: 0.01em;
 }
 
-.settings-section h2 {
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.section-desc {
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 12px;
+.settings-section {
+  margin-top: 10px;
 }
 
 .option-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f1f1f1;
 }
 
 .option-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 18px 1fr;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
+  padding: 9px 11px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 120ms ease;
+}
+
+.option-item + .option-item {
+  border-top: 1px solid var(--border);
 }
 
 .option-item:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--tile-hover);
 }
 
 .option-item input[type="checkbox"] {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .checkmark {
   width: 18px;
   height: 18px;
-  border: 2px solid #555;
-  border-radius: 4px;
-  display: flex;
+  border-radius: 5px;
+  border: 1.5px solid #a9a9a9;
+  background: #f7f7f7;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
-  flex-shrink: 0;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.option-item input[type="checkbox"]:focus-visible + .checkmark {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .option-item input[type="checkbox"]:checked + .checkmark {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: transparent;
+  background: #2e2e2e;
+  border-color: #2e2e2e;
 }
 
 .option-item input[type="checkbox"]:checked + .checkmark::after {
   content: "";
   width: 5px;
   height: 9px;
-  border: solid white;
+  border: solid #fff;
   border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-  margin-bottom: 2px;
+  transform: rotate(45deg) translate(-1px, -1px);
 }
 
 .option-text {
   font-size: 13px;
-  color: #ddd;
+  color: var(--text);
+  line-height: 1.25;
 }
 
 .popup-footer {
+  margin-top: 10px;
+  padding: 9px 4px 2px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.version {
-  font-size: 11px;
-  color: #666;
 }
 
 .status {
   font-size: 11px;
-  color: #4ade80;
+  color: var(--muted);
+}
+
+.status {
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s ease;
 }
 
 .status.show {

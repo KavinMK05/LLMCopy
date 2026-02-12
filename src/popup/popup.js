@@ -33,7 +33,7 @@ async function saveSettings(settings) {
 // Show save status indicator
 function showSaveStatus() {
   const status = document.getElementById("save-status");
-  status.textContent = "✓ Saved";
+  status.textContent = "Saved";
   status.classList.add("show");
   setTimeout(() => {
     status.classList.remove("show");
@@ -62,3 +62,4 @@ async function init() {
 
 // Run on load
 document.addEventListener("DOMContentLoaded", init);
+
