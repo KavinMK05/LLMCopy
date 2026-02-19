@@ -1,4 +1,4 @@
-window.LLMCopy = window.LLMCopy || {};
+window.AIChatExporter = window.AIChatExporter || {};
 
 // Default settings
 const DEFAULT_SETTINGS = {
@@ -13,12 +13,12 @@ const DEFAULT_SETTINGS = {
 /**
  * Get current settings from storage
  */
-window.LLMCopy.getSettings = async function () {
+window.AIChatExporter.getSettings = async function () {
   try {
-    const result = await chrome.storage.sync.get("llmcopySettings");
-    return { ...DEFAULT_SETTINGS, ...result.llmcopySettings };
+    const result = await chrome.storage.sync.get("aiChatExporterSettings");
+    return { ...DEFAULT_SETTINGS, ...result.aiChatExporterSettings };
   } catch (e) {
-    console.log("LLMCopy: Could not load settings, using defaults");
+    console.log("AI Chat Exporter: Could not load settings, using defaults");
     return DEFAULT_SETTINGS;
   }
 };
@@ -29,10 +29,10 @@ window.LLMCopy.getSettings = async function () {
 async function applySettings(data) {
   let settings = DEFAULT_SETTINGS;
   try {
-    const result = await chrome.storage.sync.get("llmcopySettings");
-    settings = { ...DEFAULT_SETTINGS, ...result.llmcopySettings };
+    const result = await chrome.storage.sync.get("aiChatExporterSettings");
+    settings = { ...DEFAULT_SETTINGS, ...result.aiChatExporterSettings };
   } catch (e) {
-    console.log("LLMCopy: Using default settings");
+    console.log("AI Chat Exporter: Using default settings");
   }
 
   const output = {};
@@ -55,7 +55,7 @@ async function applySettings(data) {
 /**
  * Download JSON file
  */
-window.LLMCopy.downloadJSON = async function (data, filename = "conversation") {
+window.AIChatExporter.downloadJSON = async function (data, filename = "conversation") {
   const output = await applySettings(data);
   const jsonStr = JSON.stringify(output, null, 2);
   const blob = new Blob([jsonStr], { type: "application/json" });
@@ -77,10 +77,10 @@ window.LLMCopy.downloadJSON = async function (data, filename = "conversation") {
  * - "text": Copy as plain text (default)
  * - "file": Copy as a JSON file blob
  */
-window.LLMCopy.copyJSON = async function (data) {
+window.AIChatExporter.copyJSON = async function (data) {
   const output = await applySettings(data);
   const jsonStr = JSON.stringify(output, null, 2);
-  const settings = await window.LLMCopy.getSettings();
+  const settings = await window.AIChatExporter.getSettings();
   const copyMode = settings.copyMode || "text";
 
   try {
@@ -99,13 +99,13 @@ window.LLMCopy.copyJSON = async function (data) {
     }
     return true;
   } catch (e) {
-    console.error("LLMCopy: Failed to copy to clipboard", e);
+    console.error("AI Chat Exporter: Failed to copy to clipboard", e);
     // Fallback to plain text if file copy fails
     try {
       await navigator.clipboard.writeText(jsonStr);
       return true;
     } catch (fallbackError) {
-      console.error("LLMCopy: Fallback copy also failed", fallbackError);
+      console.error("AI Chat Exporter: Fallback copy also failed", fallbackError);
       return false;
     }
   }
@@ -136,7 +136,7 @@ const CHECK_ICON = `
 function createButton(icon, title, onClick, options = {}) {
   const btn = document.createElement("button");
   btn.innerHTML = icon;
-  btn.className = options.className || "llmcopy-btn";
+  btn.className = options.className || "ai-chat-exporter-btn";
   btn.title = title;
   btn.setAttribute("aria-label", title);
 
@@ -178,9 +178,9 @@ function createButton(icon, title, onClick, options = {}) {
 /**
  * Create download button
  */
-window.LLMCopy.createDownloadButton = function (onClick, options = {}) {
+window.AIChatExporter.createDownloadButton = function (onClick, options = {}) {
   return createButton(DOWNLOAD_ICON, "Download JSON", onClick, {
-    className: "llmcopy-btn llmcopy-download",
+    className: "ai-chat-exporter-btn ai-chat-exporter-download",
     ...options,
   });
 };
@@ -188,7 +188,7 @@ window.LLMCopy.createDownloadButton = function (onClick, options = {}) {
 /**
  * Create copy button
  */
-window.LLMCopy.createCopyButton = function (onClick, options = {}) {
+window.AIChatExporter.createCopyButton = function (onClick, options = {}) {
   const btn = createButton(
     COPY_ICON,
     "Copy JSON to clipboard",
@@ -205,7 +205,7 @@ window.LLMCopy.createCopyButton = function (onClick, options = {}) {
       }
     },
     {
-      className: "llmcopy-btn llmcopy-copy",
+      className: "ai-chat-exporter-btn ai-chat-exporter-copy",
       ...options,
     },
   );
@@ -215,6 +215,6 @@ window.LLMCopy.createCopyButton = function (onClick, options = {}) {
 /**
  * Legacy: Create icon button (download)
  */
-window.LLMCopy.createIconButton = function (onClick, options = {}) {
-  return window.LLMCopy.createDownloadButton(onClick, options);
+window.AIChatExporter.createIconButton = function (onClick, options = {}) {
+  return window.AIChatExporter.createDownloadButton(onClick, options);
 };

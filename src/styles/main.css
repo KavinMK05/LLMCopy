@@ -1,5 +1,5 @@
-/* LLMCopy button styling */
-.llmcopy-btn {
+/* AI Chat Exporter button styling */
+.ai-chat-exporter-btn {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -15,27 +15,27 @@
   opacity: 0.8 !important;
 }
 
-.llmcopy-btn:hover {
+.ai-chat-exporter-btn:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
   opacity: 1 !important;
 }
 
-.llmcopy-btn svg {
+.ai-chat-exporter-btn svg {
   width: 20px !important;
   height: 20px !important;
 }
 
 /* Dark theme styling (default) */
-.llmcopy-btn {
+.ai-chat-exporter-btn {
   color: #e8eaed;
 }
 
 /* Light theme override if needed */
 @media (prefers-color-scheme: light) {
-  .llmcopy-btn {
+  .ai-chat-exporter-btn {
     color: #5f6368;
   }
-  .llmcopy-btn:hover {
+  .ai-chat-exporter-btn:hover {
     background-color: rgba(0, 0, 0, 0.08) !important;
   }
 }

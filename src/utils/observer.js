@@ -1,4 +1,4 @@
-window.LLMCopy = window.LLMCopy || {};
+window.AIChatExporter = window.AIChatExporter || {};
 
 /**
  * Watches for an element matching the selector and triggers the callback when found.
@@ -7,9 +7,9 @@ window.LLMCopy = window.LLMCopy || {};
  * @param {Function} callback - Function to run when the element is found. Passed the element and the observer.
  * @param {Object} options - Optional settings (e.g., continuous observation).
  */
-window.LLMCopy.observeAndInject = function (selector, callback, options = {}) {
+window.AIChatExporter.observeAndInject = function (selector, callback, options = {}) {
   // Flag to mark elements as processed
-  const MARKER = "data-llmcopy-injected";
+  const MARKER = "data-ai-chat-exporter-injected";
 
   const handleMutations = () => {
     const elements = document.querySelectorAll(selector);

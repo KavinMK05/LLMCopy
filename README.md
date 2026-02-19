@@ -1,9 +1,9 @@
-# 🤖 LLMCopy
+# 🤖 AI Chat Exporter
 
 <div align="center">
 
 ![Chrome](https://ziadoua.github.io/m3-Markdown-Badges/badges/Chrome/chrome1.svg)
-![License](https://ziadoua.github.io/m3-Markdown-Badges/badges/LicenceMIT/licencemit1.svg)
+![License](https://ziadoua.github.io/m3-Markdown-Badges/badges/LicenseApache2.0/licenseapache2.01.svg)
 
 **Export your AI conversations with ease.**  
 _Seamlessly save chat history from ChatGPT, Gemini, and Grok to JSON._
@@ -16,7 +16,7 @@ _Seamlessly save chat history from ChatGPT, Gemini, and Grok to JSON._
 
 ## 📖 Overview
 
-**LLMCopy** is a lightweight, privacy-focused browser extension designed to help you archive and export your interactions with major AI language models. Whether you're saving research, code snippets, or creative writing, LLMCopy ensures you can take your data with you in a structured, machine-readable JSON format.
+**AI Chat Exporter** is a lightweight, privacy-focused browser extension designed to help you archive and export your interactions with major AI language models. Whether you're saving research, code snippets, or creative writing, AI Chat Exporter ensures you can take your data with you in a structured, machine-readable JSON format.
 
 ## ✨ Features
 
@@ -37,7 +37,7 @@ _Seamlessly save chat history from ChatGPT, Gemini, and Grok to JSON._
 
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/yourusername/LLMCopy.git
+    git clone https://github.com/yourusername/AI-Chat-Exporter.git
     ```
 2.  **Open Chrome Extensions**
     - Navigate to `chrome://extensions/` in your browser.
@@ -45,7 +45,7 @@ _Seamlessly save chat history from ChatGPT, Gemini, and Grok to JSON._
     - Toggle the **Developer mode** switch in the top right corner.
 4.  **Load Unpacked Extension**
     - Click **Load unpacked**.
-    - Select the `LLMCopy` folder (the root directory containing `manifest.json`).
+    - Select the `AI-Chat-Exporter` folder (the root directory containing `manifest.json`).
 
 ## 🚀 Usage
 
@@ -57,12 +57,12 @@ _Seamlessly save chat history from ChatGPT, Gemini, and Grok to JSON._
     - Click **Copy** to save the JSON to your clipboard.
     - Click **Download** to save the conversation as a `.json` file.
 4.  **Configure Settings**
-    - Click the **LLMCopy extension icon** in your browser toolbar to toggle saved metadata fields (e.g., enable/disable timestamps or URLs).
+    - Click the **AI Chat Exporter extension icon** in your browser toolbar to toggle saved metadata fields (e.g., enable/disable timestamps or URLs).
 
 ## 📂 Project Structure
 
 ```
-LLMCopy/
+AI-Chat-Exporter/
 ├── manifest.json       # Extension configuration
 ├── src/
 │   ├── content/        # Content scripts for specific platforms
@@ -76,7 +76,7 @@ LLMCopy/
 
 ## 🔒 Privacy
 
-LLMCopy operates **offline** and **locally** within your browser instance.
+AI Chat Exporter operates **offline** and **locally** within your browser instance.
 
 - **No Analytics**: We do not track your usage.
 - **No Data Collection**: Your conversation data stays between you and the AI provider.

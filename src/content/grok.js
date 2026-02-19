@@ -1,5 +1,5 @@
 (function () {
-  console.log("LLMCopy: Grok adapter loaded");
+  console.log("AI Chat Exporter: Grok adapter loaded");
 
   const SELECTORS = {
     MESSAGE: 'article[data-testid="tweet"]',
@@ -43,7 +43,7 @@
     const container =
       targetEl.closest('div[style*="flex"]') || targetEl.parentElement;
 
-    if (container.querySelector(".llmcopy-btn")) return;
+    if (container.querySelector(".ai-chat-exporter-btn")) return;
 
     const btnOptions = {
       iconColor: "#E7E9EA",
@@ -51,35 +51,35 @@
     };
 
     const wrapper = document.createElement("div");
-    wrapper.className = "llmcopy-container";
+    wrapper.className = "ai-chat-exporter-container";
     wrapper.style.display = "flex";
     wrapper.style.alignItems = "center";
 
-    const copyBtn = window.LLMCopy.createCopyButton(async () => {
+    const copyBtn = window.AIChatExporter.createCopyButton(async () => {
       const data = scrapeConversation();
       if (data && data.messages.length > 0) {
-        return await window.LLMCopy.copyJSON(data);
+        return await window.AIChatExporter.copyJSON(data);
       }
-      alert("LLMCopy: No Grok messages found.");
+      alert("AI Chat Exporter: No Grok messages found.");
       return false;
     }, btnOptions);
 
-    const downloadBtn = window.LLMCopy.createDownloadButton(() => {
+    const downloadBtn = window.AIChatExporter.createDownloadButton(() => {
       const data = scrapeConversation();
       if (data && data.messages.length > 0) {
-        window.LLMCopy.downloadJSON(data, "grok_export");
+        window.AIChatExporter.downloadJSON(data, "grok_export");
       } else {
-        alert("LLMCopy: No Grok messages found.");
+        alert("AI Chat Exporter: No Grok messages found.");
       }
     }, btnOptions);
 
     wrapper.appendChild(copyBtn);
     wrapper.appendChild(downloadBtn);
     container.appendChild(wrapper);
-    console.log("LLMCopy: Buttons injected in Grok");
+    console.log("AI Chat Exporter: Buttons injected in Grok");
   }
 
-  window.LLMCopy.observeAndInject(SELECTORS.HEADER, (header) => {
+  window.AIChatExporter.observeAndInject(SELECTORS.HEADER, (header) => {
     injectButtons(header);
   });
 })();

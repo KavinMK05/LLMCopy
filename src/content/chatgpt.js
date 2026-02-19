@@ -1,5 +1,5 @@
 (function () {
-  console.log("LLMCopy: ChatGPT adapter loaded");
+  console.log("AI Chat Exporter: ChatGPT adapter loaded");
 
   const SELECTORS = {
     HEADER_ACTIONS: "#conversation-header-actions",
@@ -37,7 +37,7 @@
   }
 
   function injectButtons(headerActions) {
-    if (headerActions.querySelector(".llmcopy-btn")) return;
+    if (headerActions.querySelector(".ai-chat-exporter-btn")) return;
 
     const btnOptions = {
       iconColor: "currentColor",
@@ -46,42 +46,42 @@
 
     // Create button container
     const container = document.createElement("div");
-    container.className = "llmcopy-container";
+    container.className = "ai-chat-exporter-container";
     container.style.display = "flex";
     container.style.alignItems = "center";
     container.style.marginLeft = "4px";
 
     // Copy button
-    const copyBtn = window.LLMCopy.createCopyButton(async () => {
+    const copyBtn = window.AIChatExporter.createCopyButton(async () => {
       const data = scrapeConversation();
       if (data && data.messages.length > 0) {
-        return await window.LLMCopy.copyJSON(data);
+        return await window.AIChatExporter.copyJSON(data);
       } else {
-        alert("LLMCopy: No messages found.");
+        alert("AI Chat Exporter: No messages found.");
         return false;
       }
     }, btnOptions);
 
     // Download button
-    const downloadBtn = window.LLMCopy.createDownloadButton(() => {
+    const downloadBtn = window.AIChatExporter.createDownloadButton(() => {
       const data = scrapeConversation();
       if (data && data.messages.length > 0) {
-        window.LLMCopy.downloadJSON(
+        window.AIChatExporter.downloadJSON(
           data,
           `chatgpt_${data.title.substring(0, 20)}`,
         );
       } else {
-        alert("LLMCopy: No messages found.");
+        alert("AI Chat Exporter: No messages found.");
       }
     }, btnOptions);
 
     container.appendChild(copyBtn);
     container.appendChild(downloadBtn);
     headerActions.appendChild(container);
-    console.log("LLMCopy: Buttons injected in ChatGPT header");
+    console.log("AI Chat Exporter: Buttons injected in ChatGPT header");
   }
 
-  window.LLMCopy.observeAndInject(SELECTORS.HEADER_ACTIONS, (container) => {
+  window.AIChatExporter.observeAndInject(SELECTORS.HEADER_ACTIONS, (container) => {
     injectButtons(container);
   });
 })();

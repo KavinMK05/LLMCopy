@@ -1,12 +1,14 @@
 :root {
-  --bg: #e8e8e8;
+  --bg: #ffffff;
   --surface: #f4f4f4;
-  --tile: #e6e6e6;
-  --tile-hover: #dddddd;
-  --border: #d0d0d0;
+  --tile: #ffffff;
+  --tile-hover: #007aff;
+  --border: rgba(0, 0, 0, 0.12);
   --text: #1f1f1f;
-  --muted: #6b6b6b;
-  --focus: #7e7e7e;
+  --text-hover: #ffffff;
+  --muted: #86868b;
+  --muted-hover: rgba(255, 255, 255, 0.7);
+
 }
 
 * {
@@ -16,57 +18,42 @@
 }
 
 body {
-  min-width: 300px;
-  max-width: 340px;
-  padding: 10px;
+  min-width: 220px;
+  padding: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "SF Pro Text", "Avenir Next", "Helvetica Neue", sans-serif;
-}
-
-.popup-container {
-  padding: 2px;
-}
-
-.popup-header {
-  padding: 2px 4px 10px 4px;
-  border-bottom: 1px solid var(--border);
-}
-
-.popup-header h1 {
-  font-size: 16px;
-  line-height: 1.2;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
-
-.settings-section {
-  margin-top: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .option-list {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  background: #f1f1f1;
+  background: var(--bg);
 }
 
 .option-item {
   display: grid;
-  grid-template-columns: 18px 1fr;
+  grid-template-columns: 16px 1fr 16px;
   align-items: center;
-  gap: 10px;
-  padding: 9px 11px;
-  cursor: pointer;
-  transition: background-color 120ms ease;
-}
-
-.option-item + .option-item {
-  border-top: 1px solid var(--border);
+  gap: 8px;
+  padding: 4px 10px;
+  height: 28px;
+  cursor: default;
+  transition: background-color 100ms ease;
+  user-select: none;
 }
 
 .option-item:hover {
   background: var(--tile-hover);
+  border-radius: 6px;
+}
+
+.option-item:hover .option-text {
+  color: var(--text-hover);
+}
+
+.option-item:hover .option-icon svg {
+  color: var(--muted-hover);
 }
 
 .option-item input[type="checkbox"] {
@@ -75,63 +62,70 @@ body {
   pointer-events: none;
 }
 
-.checkmark {
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
-  border: 1.5px solid #a9a9a9;
-  background: #f7f7f7;
-  display: inline-flex;
+.option-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    background-color 120ms ease,
-    border-color 120ms ease;
+  color: var(--muted);
 }
 
-.option-item input[type="checkbox"]:focus-visible + .checkmark {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-}
-
-.option-item input[type="checkbox"]:checked + .checkmark {
-  background: #2e2e2e;
-  border-color: #2e2e2e;
-}
-
-.option-item input[type="checkbox"]:checked + .checkmark::after {
-  content: "";
-  width: 5px;
-  height: 9px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) translate(-1px, -1px);
+.option-icon svg {
+  width: 14px;
+  height: 14px;
+  transition: color 100ms ease;
 }
 
 .option-text {
   font-size: 13px;
   color: var(--text);
-  line-height: 1.25;
+  line-height: 1;
+  transition: color 100ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.popup-footer {
-  margin-top: 10px;
-  padding: 9px 4px 2px;
+.checkmark {
+  width: 14px;
+  height: 14px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-}
-
-.status {
-  font-size: 11px;
-  color: var(--muted);
-}
-
-.status {
+  justify-content: center;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 100ms ease;
 }
 
-.status.show {
+.option-item input[type="checkbox"]:checked + .checkmark {
   opacity: 1;
+}
+
+.option-item input[type="checkbox"]:focus-visible ~ .option-text {
+  outline: 2px solid var(--tile-hover);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.checkmark svg {
+  width: 12px;
+  height: 12px;
+  color: var(--text);
+}
+
+.option-item:hover .checkmark svg {
+  color: var(--text-hover);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #2d2d2d;
+    --tile: #3a3a3a;
+    --tile-hover: #007aff;
+    --border: rgba(255, 255, 255, 0.1);
+    --text: #ffffff;
+    --text-hover: #ffffff;
+    --muted: #98989d;
+    --muted-hover: rgba(255, 255, 255, 0.6);
+  }
 }

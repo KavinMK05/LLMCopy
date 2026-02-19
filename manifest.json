@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "LLMCopy",
+  "name": "AI Chat Exporter - Save Conversations",
   "version": "1.0",
-  "description": "Export AI conversation history to JSON from ChatGPT, Gemini, and Grok.",
+  "description": "Export AI chat history to JSON from ChatGPT, Gemini, and Grok. A privacy-first browser extension to save, backup, and archive your AI conversations locally.",
+  "author": "AI Chat Exporter Contributors",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": ["activeTab", "scripting", "storage"],
   "content_scripts": [
     {
@@ -34,7 +40,7 @@
     }
   ],
   "action": {
-    "default_title": "LLMCopy Settings",
+    "default_title": "AI Chat Exporter Settings",
     "default_popup": "src/popup/popup.html"
   }
 }
