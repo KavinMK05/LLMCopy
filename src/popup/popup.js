@@ -17,12 +17,12 @@ const OPTIONS = {
 };
 
 async function loadSettings() {
-  const result = await chrome.storage.sync.get("aiChatExporterSettings");
+  const result = await browser.storage.sync.get("aiChatExporterSettings");
   return result.aiChatExporterSettings || DEFAULT_SETTINGS;
 }
 
 async function saveSettings(settings) {
-  await chrome.storage.sync.set({ aiChatExporterSettings: settings });
+  await browser.storage.sync.set({ aiChatExporterSettings: settings });
 }
 
 async function init() {
