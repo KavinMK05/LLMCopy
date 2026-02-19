@@ -15,10 +15,10 @@ const DEFAULT_SETTINGS = {
  */
 window.AIChatExporter.getSettings = async function () {
   try {
-    const result = await browser.storage.sync.get("aiChatExporterSettings");
+    const result = await browser.storage.local.get("aiChatExporterSettings");
     return { ...DEFAULT_SETTINGS, ...result.aiChatExporterSettings };
   } catch (e) {
-    console.log("AI Chat Exporter: Could not load settings, using defaults");
+    console.log("AI Chat Exporter: Could not load settings, using defaults", e);
     return DEFAULT_SETTINGS;
   }
 };
@@ -29,10 +29,10 @@ window.AIChatExporter.getSettings = async function () {
 async function applySettings(data) {
   let settings = DEFAULT_SETTINGS;
   try {
-    const result = await browser.storage.sync.get("aiChatExporterSettings");
+    const result = await browser.storage.local.get("aiChatExporterSettings");
     settings = { ...DEFAULT_SETTINGS, ...result.aiChatExporterSettings };
   } catch (e) {
-    console.log("AI Chat Exporter: Using default settings");
+    console.log("AI Chat Exporter: Using default settings", e);
   }
 
   const output = {};
